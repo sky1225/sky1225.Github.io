@@ -378,50 +378,137 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="4-希尔排序"><a href="#4-希尔排序" class="headerlink" title="4. 希尔排序"></a>4. 希尔排序</h2><h2 id="5-归并排序"><a href="#5-归并排序" class="headerlink" title="5. 归并排序"></a>5. 归并排序</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MergeSort</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">mergeSort</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>arr<span class="token punctuation">.</span>length <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> arr<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">int</span> mid <span class="token operator">=</span> arr<span class="token punctuation">.</span>length <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>left <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">copyOfRange</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> mid<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>right <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">copyOfRange</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token function">mergeSort</span><span class="token punctuation">(</span>left<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">mergeSort</span><span class="token punctuation">(</span>right<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>arr1<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>arr2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>arr1<span class="token punctuation">.</span>length <span class="token operator">+</span> arr2<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> arr1<span class="token punctuation">.</span>length <span class="token operator">&amp;&amp;</span> j <span class="token operator">&lt;</span> arr2<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>arr1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> arr2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                res<span class="token punctuation">[</span>index <span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> arr1<span class="token punctuation">[</span>i <span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                res<span class="token punctuation">[</span>index <span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> arr2<span class="token punctuation">[</span>j <span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> arr1<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            res<span class="token punctuation">[</span>index <span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> arr1<span class="token punctuation">[</span>i <span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>j <span class="token operator">&lt;</span> arr2<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            res<span class="token punctuation">[</span>index <span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> arr2<span class="token punctuation">[</span>j <span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<h2 id="4-希尔排序"><a href="#4-希尔排序" class="headerlink" title="4. 希尔排序"></a>4. 希尔排序</h2><ul>
+<li><p>交换式</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ShellSort</span> <span class="token punctuation">{</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">shellSort</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">int</span> temp <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> gap <span class="token operator">=</span> arr<span class="token punctuation">.</span>length <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span> gap <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> gap <span class="token operator">/=</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> gap<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token comment" spellcheck="true">//  遍历各组中所有元素</span>
+              <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">-</span> gap<span class="token punctuation">;</span> j <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">-=</span> gap<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                  <span class="token keyword">if</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> arr<span class="token punctuation">[</span>j <span class="token operator">+</span> gap<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                      temp <span class="token operator">=</span> arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                      arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>j <span class="token operator">+</span> gap<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                      arr<span class="token punctuation">[</span>j <span class="token operator">+</span> gap<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+                  <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">return</span> arr<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>arr <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-        arr <span class="token operator">=</span> <span class="token function">mergeSort</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"["</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">!=</span> arr<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token string">"、"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>arr <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+      arr <span class="token operator">=</span> <span class="token function">shellSort</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"["</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">!=</span> arr<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token string">"、"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+              System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-<h2 id="6-快速排序"><a href="#6-快速排序" class="headerlink" title="6. 快速排序"></a>6. 快速排序</h2><h2 id="7-堆排序"><a href="#7-堆排序" class="headerlink" title="7. 堆排序"></a>7. 堆排序</h2><h2 id="8-计数排序"><a href="#8-计数排序" class="headerlink" title="8. 计数排序"></a>8. 计数排序</h2><h2 id="9-桶排序"><a href="#9-桶排序" class="headerlink" title="9. 桶排序"></a>9. 桶排序</h2><h2 id="10-基数排序"><a href="#10-基数排序" class="headerlink" title="10. 基数排序"></a>10. 基数排序</h2>
+</li>
+<li><p>移动式</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ShellSort</span> <span class="token punctuation">{</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">shellSort</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">int</span> temp <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> gap <span class="token operator">=</span> arr<span class="token punctuation">.</span>length <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span> gap <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> gap <span class="token operator">/=</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> gap<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token comment" spellcheck="true">//  交换式</span>
+<span class="token comment" spellcheck="true">//                for (int j = i - gap; j >= 0; j -= gap) {</span>
+<span class="token comment" spellcheck="true">//                    if(arr[j] > arr[j + gap]) {</span>
+<span class="token comment" spellcheck="true">//                        temp = arr[j];</span>
+<span class="token comment" spellcheck="true">//                        arr[j] = arr[j + gap];</span>
+<span class="token comment" spellcheck="true">//                        arr[j + gap] = temp;</span>
+<span class="token comment" spellcheck="true">//                    }</span>
+<span class="token comment" spellcheck="true">//                }</span>
+              <span class="token comment" spellcheck="true">//  移动式</span>
+              <span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">-</span> gap<span class="token punctuation">;</span>
+              <span class="token keyword">int</span> num <span class="token operator">=</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+              <span class="token keyword">while</span> <span class="token punctuation">(</span>j <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                  <span class="token keyword">if</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                      arr<span class="token punctuation">[</span>j <span class="token operator">+</span> gap<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                      j <span class="token operator">-=</span> gap<span class="token punctuation">;</span>
+                  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                      arr<span class="token punctuation">[</span>j <span class="token operator">+</span> gap<span class="token punctuation">]</span> <span class="token operator">=</span> num<span class="token punctuation">;</span>
+                      <span class="token keyword">break</span><span class="token punctuation">;</span>
+                  <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span>j <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                  arr<span class="token punctuation">[</span>j <span class="token operator">+</span> gap<span class="token punctuation">]</span> <span class="token operator">=</span> num<span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">return</span> arr<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>arr <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+      arr <span class="token operator">=</span> <span class="token function">shellSort</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"["</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">!=</span> arr<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token string">"、"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+              System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+</ul>
+<pre><code>## 5. 归并排序
+```java
+public class MergeSort {
+    private static int[] mergeSort(int []arr) {
+        if(arr.length &lt; 2) {
+            return arr;
+        }
+        int mid = arr.length / 2;
+        int []left = Arrays.copyOfRange(arr, 0, mid);
+        int []right = Arrays.copyOfRange(arr, mid, arr.length);
+        return merge(mergeSort(left), mergeSort(right));
+    }
+    public static int[] merge(int []arr1, int []arr2) {
+        int []res = new int[arr1.length + arr2.length];
+        int i = 0, j = 0, index = 0;
+        while (i &lt; arr1.length &amp;&amp; j &lt; arr2.length) {
+            if(arr1[i] &lt;= arr2[j]) {
+                res[index ++] = arr1[i ++];
+            } else {
+                res[index ++] = arr2[j ++];
+            }
+        }
+        while (i &lt; arr1.length) {
+            res[index ++] = arr1[i ++];
+        }
+        while (j &lt; arr2.length) {
+            res[index ++] = arr2[j ++];
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        int []arr = {3, 1, 5, 9, 0, 4};
+        arr = mergeSort(arr);
+        System.out.print(&quot;[&quot;);
+        for (int i = 0; i &lt; arr.length; i ++) {
+            if(i != arr.length - 1) {
+                System.out.print(arr[i] + &quot;、&quot;);
+            } else {
+                System.out.print(arr[i]);
+            }
+        }
+        System.out.println(&quot;]&quot;);
+    }
+}</code></pre><h2 id="6-快速排序"><a href="#6-快速排序" class="headerlink" title="6. 快速排序"></a>6. 快速排序</h2><h2 id="7-堆排序"><a href="#7-堆排序" class="headerlink" title="7. 堆排序"></a>7. 堆排序</h2><h2 id="8-计数排序"><a href="#8-计数排序" class="headerlink" title="8. 计数排序"></a>8. 计数排序</h2><h2 id="9-桶排序"><a href="#9-桶排序" class="headerlink" title="9. 桶排序"></a>9. 桶排序</h2><h2 id="10-基数排序"><a href="#10-基数排序" class="headerlink" title="10. 基数排序"></a>10. 基数排序</h2>
             </div>
 
             <!-- Post Comments -->
@@ -519,7 +606,7 @@ $('.btn_click_load').click(function() {
                 <li>Design: <span style="border-bottom: none;">余永康</span></li>
             </ul>
             
-				<span id="busuanzi_container_site_pv"> 2020-05-12 </span>
+				<span id="busuanzi_container_site_pv"> 2020-05-13 </span>
 			
         </div>
 
