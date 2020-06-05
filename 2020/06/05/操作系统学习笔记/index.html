@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 计算机系统概述1.1. 操作系统的基本概念1.1.1. 操作系统的概念1.1.2. 操作系统的特征1.1.3. 操作系统的目标和功能2. 进程管理2.1. 进程与线程2.2. 处理机调度2.3. 进程同步2.3.1. 进程同步的概念在多道程序环境下，进程是并发执行的，为了协调进程之间的相互制约关系，引入了进程同步概念。  临界资源：一次仅允许一个进程使用的资源。对临界资源的访问必须互斥地进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/06/05/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Sky1225">
+<meta property="og:description" content="1. 计算机系统概述1.1. 操作系统的基本概念1.1.1. 操作系统的概念1.1.2. 操作系统的特征1.1.3. 操作系统的目标和功能2. 进程管理2.1. 进程与线程2.2. 处理机调度2.3. 进程同步2.3.1. 进程同步的概念在多道程序环境下，进程是并发执行的，为了协调进程之间的相互制约关系，引入了进程同步概念。  临界资源：一次仅允许一个进程使用的资源。对临界资源的访问必须互斥地进行">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/06/05/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_images/c20b9300.png">
+<meta property="article:published_time" content="2020-06-05T08:22:23.000Z">
+<meta property="article:modified_time" content="2020-06-05T08:55:51.400Z">
+<meta property="article:author" content="余永康">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/05/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_images/c20b9300.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/05/操作系统学习笔记/"/>
+
+
+
+
+
+  <title>操作系统学习笔记 | Sky1225</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?854009639f16cd3c1b6ad910333ef53d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sky1225</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/05/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="余永康">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sky1225">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">操作系统学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-05T16:22:23+08:00">
+                2020-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-计算机系统概述"><a href="#1-计算机系统概述" class="headerlink" title="1. 计算机系统概述"></a>1. 计算机系统概述</h1><h2 id="1-1-操作系统的基本概念"><a href="#1-1-操作系统的基本概念" class="headerlink" title="1.1. 操作系统的基本概念"></a>1.1. 操作系统的基本概念</h2><h3 id="1-1-1-操作系统的概念"><a href="#1-1-1-操作系统的概念" class="headerlink" title="1.1.1. 操作系统的概念"></a>1.1.1. 操作系统的概念</h3><h3 id="1-1-2-操作系统的特征"><a href="#1-1-2-操作系统的特征" class="headerlink" title="1.1.2. 操作系统的特征"></a>1.1.2. 操作系统的特征</h3><h3 id="1-1-3-操作系统的目标和功能"><a href="#1-1-3-操作系统的目标和功能" class="headerlink" title="1.1.3. 操作系统的目标和功能"></a>1.1.3. 操作系统的目标和功能</h3><h1 id="2-进程管理"><a href="#2-进程管理" class="headerlink" title="2. 进程管理"></a>2. 进程管理</h1><h2 id="2-1-进程与线程"><a href="#2-1-进程与线程" class="headerlink" title="2.1. 进程与线程"></a>2.1. 进程与线程</h2><h2 id="2-2-处理机调度"><a href="#2-2-处理机调度" class="headerlink" title="2.2. 处理机调度"></a>2.2. 处理机调度</h2><h2 id="2-3-进程同步"><a href="#2-3-进程同步" class="headerlink" title="2.3. 进程同步"></a>2.3. 进程同步</h2><h3 id="2-3-1-进程同步的概念"><a href="#2-3-1-进程同步的概念" class="headerlink" title="2.3.1. 进程同步的概念"></a>2.3.1. 进程同步的概念</h3><p>在多道程序环境下，进程是并发执行的，为了协调进程之间的相互制约关系，引入了进程同步概念。</p>
+<ol>
+<li>临界资源：一次仅允许一个进程使用的资源。对临界资源的访问必须互斥地进行，在每个进程中，访问临界资源的那部分代码叫做临界区。<br>为了保证临届资源的正确使用，可把临界资源的访问过程分为4个部分：<br> 1）进入区<br> 2）临界区<br> 3）退出区<br> 4）剩余区</li>
+<li>同步：也称直接制约关系。指为完成某种任务而建立的两个或多个线程，这些进程因为需要在某些位置上协调他们的工作次序而等待、传递信息所产生的制约关系。进程间的制约关系源于他们之间的相互合作。</li>
+<li>互斥：也称间接制约关系。当一个进程进入临界区使用临界资源时，另一个进程必须等待。</li>
+</ol>
+<p>为禁止两个进程同时进入临界区，同步机制应遵循以下准则：</p>
+<ul>
+<li>空闲让进</li>
+<li>忙则等待</li>
+<li>有限等待</li>
+<li>让权等待<h3 id="2-3-2-实现临界区互斥的基本方法"><a href="#2-3-2-实现临界区互斥的基本方法" class="headerlink" title="2.3.2. 实现临界区互斥的基本方法"></a>2.3.2. 实现临界区互斥的基本方法</h3></li>
+</ul>
+<ol>
+<li>软件实现方法<br> 1) 单标志法：设置一个公用整型变量turn，turn = i时允许编号为i的进程Pi进入临界区。若某个进程不再进入临界区，那么其他进程也将无法进入临界区（违背“空闲让进”）<br> <img src=".%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_images/c20b9300.png" alt=""><br> 2) 双标志法先检查：在每个进程访问临界区资源之前，先查看该临界资源是否正被访问，若正被访问，该进程需等待。设置一个数据flag[i]，若flag[i] = false，表示Pi进程未进入临界区。<pre><code> ![](.操作系统学习笔记_images/28e232e2.png)
+ 优点：不用交替进入，可连续使用
+ 缺点：按序列①②③④执行时会同时进入临界区（违背“忙则等待”）</code></pre> 3) 双标志法后检查：先将自己的标志置为true，再检测对方的状态标志<pre><code> ![](.操作系统学习笔记_images/007308fe.png)
+ 缺点：两个进程几乎同时想要进入临界区时，他们分别将自己的标志flag置为true，并同时检测对方的状态，发现对方也要进入临界区时，双方互相谦让，结果谁也进不了临界区，从而导致“饥饿”现象。</code></pre> 4) Peterson’s Algorithm：为了防止两个进程进入临界区而无限期等待，又设置了变量turn，每个进程在先设置自己的标志后再设置turn标志。<pre><code> ![](.操作系统学习笔记_images/45909cab.png)</code></pre>（2）    硬件实现方法<br>a)    中断屏蔽方法：因为CPU只是在发送中断的时候引起进程切换，所以当一个进程正在使用处理机执行他的临界区代码时，防止其他进程进入临界区进行访问的最简方法是禁止一切中断发生。</li>
+</ol>
+<p>b)    硬件指令方法<br>i.    TestAndSet指令：这条指令是原子操作，其功能是读出指定标志后把该标志设置为真。</p>
+<p>为每个临界资源设置一个共享布尔变量lock，表示资源的两种状态：true表示正在被占用，初值为false。在进程访问临界资源之前，利用TestAndSet检查和修改标志lock；若有进程在临界区，则重复检查，直到进程退出。</p>
+<p>ii.    Swap指令：该指令的功能是交换两个字（字节的内容）。</p>
+<p>为每个临界资源设置一个共享布尔变量lock，初值为false；在每个进程中再设置一个局部变量key，用于与lock交换信息。在进入临界区之前，先利用Swap指令交换lock和key的内容，然后检查key的状态。有进程在临界区时，重复交换和检查过程，直到进程退出。</p>
+<p>2.3.3.    信号量<br>信号量只能被两个标准的原语wait()和signal()访问，可记为“P操作”和“V操作”。<br>原语是指完成某种功能不被分割、不被中断执行的操作序列，通常由硬件来实现。原语功能的不被中断执行特性在单处理机上可有软件屏蔽中断方法实现。<br>2.4.    死锁<br>3.    内存管理<br>3.1.    内存管理概念<br>3.2.    虚拟内存管理<br>4.    文件管理<br>4.1.    文件系统基础<br>4.2.    文件系统实现<br>4.3.    磁盘组织与管理<br>5.    输入/输出（I/O）管理<br>5.1.    I/O管理概述<br>5.2.    I/O核心子系统</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="余永康 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="余永康 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/04/135-%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/" rel="next" title="135.分发糖果">
+                <i class="fa fa-chevron-left"></i> 135.分发糖果
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">余永康</p>
+              <p class="site-description motion-element" itemprop="description">余永康的个人博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/sky1225" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ykyu15361652619@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/kang-zi-81-76" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.xuewen.me/" title="xuewenG" target="_blank">xuewenG</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-计算机系统概述"><span class="nav-text">1. 计算机系统概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-操作系统的基本概念"><span class="nav-text">1.1. 操作系统的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-操作系统的概念"><span class="nav-text">1.1.1. 操作系统的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-操作系统的特征"><span class="nav-text">1.1.2. 操作系统的特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-3-操作系统的目标和功能"><span class="nav-text">1.1.3. 操作系统的目标和功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-进程管理"><span class="nav-text">2. 进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-进程与线程"><span class="nav-text">2.1. 进程与线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-处理机调度"><span class="nav-text">2.2. 处理机调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-进程同步"><span class="nav-text">2.3. 进程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-进程同步的概念"><span class="nav-text">2.3.1. 进程同步的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-实现临界区互斥的基本方法"><span class="nav-text">2.3.2. 实现临界区互斥的基本方法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">余永康</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
