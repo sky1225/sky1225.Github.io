@@ -130,16 +130,6 @@
 
 
 
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?854009639f16cd3c1b6ad910333ef53d";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
 
 
 
@@ -209,22 +199,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
           </a>
         </li>
       
@@ -257,6 +247,125 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="余永康">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sky1225">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url">计算机网络学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-05T18:05:10+08:00">
+                2020-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -356,11 +465,10 @@
 <li>让权等待<h3 id="2-3-2-实现临界区互斥的基本方法"><a href="#2-3-2-实现临界区互斥的基本方法" class="headerlink" title="2.3.2. 实现临界区互斥的基本方法"></a>2.3.2. 实现临界区互斥的基本方法</h3></li>
 </ul>
 <ol>
-<li>软件实现方法<br> 1) 单标志法：设置一个公用整型变量turn，turn = i时允许编号为i的进程Pi进入临界区。若某个进程不再进入临界区，那么其他进程也将无法进入临界区（违背“空闲让进”）<br> <img src=".%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_images/c20b9300.png" alt=""><br> 2) 双标志法先检查：在每个进程访问临界区资源之前，先查看该临界资源是否正被访问，若正被访问，该进程需等待。设置一个数据flag[i]，若flag[i] = false，表示Pi进程未进入临界区。<pre><code> ![](.操作系统学习笔记_images/28e232e2.png)
- 优点：不用交替进入，可连续使用
- 缺点：按序列①②③④执行时会同时进入临界区（违背“忙则等待”）</code></pre> 3) 双标志法后检查：先将自己的标志置为true，再检测对方的状态标志<pre><code> ![](.操作系统学习笔记_images/007308fe.png)
- 缺点：两个进程几乎同时想要进入临界区时，他们分别将自己的标志flag置为true，并同时检测对方的状态，发现对方也要进入临界区时，双方互相谦让，结果谁也进不了临界区，从而导致“饥饿”现象。</code></pre> 4) Peterson’s Algorithm：为了防止两个进程进入临界区而无限期等待，又设置了变量turn，每个进程在先设置自己的标志后再设置turn标志。<pre><code> ![](.操作系统学习笔记_images/45909cab.png)</code></pre>（2）    硬件实现方法<br>a)    中断屏蔽方法：因为CPU只是在发送中断的时候引起进程切换，所以当一个进程正在使用处理机执行他的临界区代码时，防止其他进程进入临界区进行访问的最简方法是禁止一切中断发生。</li>
+<li>软件实现方法<br> 1) 单标志法：设置一个公用整型变量turn，turn = i时允许编号为i的进程Pi进入临界区。若某个进程不再进入临界区，那么其他进程也将无法进入临界区（违背“空闲让进”）<br> 2) 双标志法先检查：在每个进程访问临界区资源之前，先查看该临界资源是否正被访问，若正被访问，该进程需等待。设置一个数据flag[i]，若flag[i] = false，表示Pi进程未进入临界区。<pre><code> 优点：不用交替进入，可连续使用
+ 缺点：按序列①②③④执行时会同时进入临界区（违背“忙则等待”）</code></pre> 3) 双标志法后检查：先将自己的标志置为true，再检测对方的状态标志<pre><code> 缺点：两个进程几乎同时想要进入临界区时，他们分别将自己的标志flag置为true，并同时检测对方的状态，发现对方也要进入临界区时，双方互相谦让，结果谁也进不了临界区，从而导致“饥饿”现象。</code></pre> 4) Peterson’s Algorithm：为了防止两个进程进入临界区而无限期等待，又设置了变量turn，每个进程在先设置自己的标志后再设置turn标志。</li>
 </ol>
+<p>（2）    硬件实现方法<br>a)    中断屏蔽方法：因为CPU只是在发送中断的时候引起进程切换，所以当一个进程正在使用处理机执行他的临界区代码时，防止其他进程进入临界区进行访问的最简方法是禁止一切中断发生。</p>
 <p>b)    硬件指令方法<br>i.    TestAndSet指令：这条指令是原子操作，其功能是读出指定标志后把该标志设置为真。</p>
 <p>为每个临界资源设置一个共享布尔变量lock，表示资源的两种状态：true表示正在被占用，初值为false。在进程访问临界资源之前，利用TestAndSet检查和修改标志lock；若有进程在临界区，则重复检查，直到进程退出。</p>
 <p>ii.    Swap指令：该指令的功能是交换两个字（字节的内容）。</p>
@@ -2625,7 +2733,7 @@ inChannel<span class="token punctuation">.</span><span class="token function">tr
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2685,20 +2793,6 @@ inChannel<span class="token punctuation">.</span><span class="token function">tr
           
 
           
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://blog.xuewen.me/" title="xuewenG" target="_blank">xuewenG</a>
-                  </li>
-                
-              </ul>
-            </div>
           
 
           
@@ -2785,8 +2879,6 @@ inChannel<span class="token punctuation">.</span><span class="token function">tr
   
 
 
-  
-
 
 
 
@@ -2825,11 +2917,6 @@ inChannel<span class="token punctuation">.</span><span class="token function">tr
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
