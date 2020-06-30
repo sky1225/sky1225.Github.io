@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>135.分发糖果</title>
+    <url>/2020/06/04/135-%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/</url>
+    <content><![CDATA[<p>转载至：<code>https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-leetcode/</code></p>
+<p>题目描述：<br><br><code>老师想给孩子们分发糖果，有 N 个孩子站成了一条直线，老师会根据每个孩子的表现，预先给他们评分。</code><br><br>你需要按照以下要求，帮助老师给这些孩子分发糖果：</p>
+<ul>
+<li>每个孩子至少分配到 1 个糖果。</li>
+<li>相邻的孩子中，评分高的孩子必须获得更多的糖果。 <br><br>那么这样下来，老师至少需要准备多少颗糖果呢？</li>
+</ul>
+<p>解法：用两个数组，数组 lToR 用来存储每名学生只与左边邻居有关的所需糖果数，数组rToL用来存储每名学生只与右边邻居有关的所需糖果数<br>最后我们得到最少糖果数：Math.max(lToR[i], rToL[i]) 求和</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">candy</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> ratings<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> lToR <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>ratings<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> rToL <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>ratings<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> ratings<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            lToR<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            rToL<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">//  从左向右遍历，若 ratings[i] > ratings[i-1] 则 lToR[i] = lToR[i-1] + 1;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> ratings<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>ratings<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> ratings<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                lToR<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> lToR<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">//  从右向左遍历，若 ratings[i] > ratings[i+1] 则 rToL[i] = rToL[i + 1] + 1;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> ratings<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>ratings<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> ratings<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                rToL<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> rToL<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> ratings<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            res <span class="token operator">+=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>lToR<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> rToL<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>hard</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>42.接雨水</title>
     <url>/2020/06/04/42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/</url>
     <content><![CDATA[<p>题目描述：给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</p>
@@ -68,6 +114,33 @@
       </categories>
       <tags>
         <tag>hard</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1. 两数之和</title>
+    <url>/2020/05/08/leetcode-bytedance/</url>
+    <content><![CDATA[<h2 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1 两数之和"></a>1 两数之和</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">twoSum</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> length <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        Map<span class="token operator">&lt;</span>Integer<span class="token punctuation">,</span> Integer<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> length<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>target <span class="token operator">-</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>target <span class="token operator">-</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> i<span class="token punctuation">}</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>字节跳动企业题库</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>字节跳动</tag>
       </tags>
   </entry>
   <entry>
@@ -709,52 +782,6 @@ inChannel<span class="token punctuation">.</span><span class="token function">tr
       </tags>
   </entry>
   <entry>
-    <title>135.分发糖果</title>
-    <url>/2020/06/04/135-%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/</url>
-    <content><![CDATA[<p>转载至：<code>https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-leetcode/</code></p>
-<p>题目描述：<br><br><code>老师想给孩子们分发糖果，有 N 个孩子站成了一条直线，老师会根据每个孩子的表现，预先给他们评分。</code><br><br>你需要按照以下要求，帮助老师给这些孩子分发糖果：</p>
-<ul>
-<li>每个孩子至少分配到 1 个糖果。</li>
-<li>相邻的孩子中，评分高的孩子必须获得更多的糖果。 <br><br>那么这样下来，老师至少需要准备多少颗糖果呢？</li>
-</ul>
-<p>解法：用两个数组，数组 lToR 用来存储每名学生只与左边邻居有关的所需糖果数，数组rToL用来存储每名学生只与右边邻居有关的所需糖果数<br>最后我们得到最少糖果数：Math.max(lToR[i], rToL[i]) 求和</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">candy</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> ratings<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> lToR <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>ratings<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> rToL <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>ratings<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> ratings<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            lToR<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            rToL<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">//  从左向右遍历，若 ratings[i] > ratings[i-1] 则 lToR[i] = lToR[i-1] + 1;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> ratings<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>ratings<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> ratings<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                lToR<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> lToR<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">//  从右向左遍历，若 ratings[i] > ratings[i+1] 则 rToL[i] = rToL[i + 1] + 1;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> ratings<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>ratings<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> ratings<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                rToL<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> rToL<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> ratings<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            res <span class="token operator">+=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>lToR<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> rToL<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>hard</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>二叉树三种遍历方式</title>
     <url>/2020/05/11/binary-tree-ergodic/</url>
     <content><![CDATA[<h1 id="二叉树的前序、中序、后序遍历（递归-amp-非递归）"><a href="#二叉树的前序、中序、后序遍历（递归-amp-非递归）" class="headerlink" title="二叉树的前序、中序、后序遍历（递归 &amp; 非递归）"></a>二叉树的前序、中序、后序遍历（递归 &amp; 非递归）</h1><p>二叉树遍历是二叉树中最基本的问题，其实现的方法非常多，有递归方式和非递归方式，这里介绍一种通用的非递归解法<br></p>
@@ -892,61 +919,6 @@ inChannel<span class="token punctuation">.</span><span class="token function">tr
       <tags>
         <tag>二叉树</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>1. 两数之和</title>
-    <url>/2020/05/08/leetcode-bytedance/</url>
-    <content><![CDATA[<h2 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1 两数之和"></a>1 两数之和</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">twoSum</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> length <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        Map<span class="token operator">&lt;</span>Integer<span class="token punctuation">,</span> Integer<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> length<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>target <span class="token operator">-</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>target <span class="token operator">-</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> i<span class="token punctuation">}</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-        <category>字节跳动企业题库</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-        <tag>字节跳动</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>操作系统学习笔记</title>
-    <url>/2020/06/05/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="1-计算机系统概述"><a href="#1-计算机系统概述" class="headerlink" title="1. 计算机系统概述"></a>1. 计算机系统概述</h1><h2 id="1-1-操作系统的基本概念"><a href="#1-1-操作系统的基本概念" class="headerlink" title="1.1. 操作系统的基本概念"></a>1.1. 操作系统的基本概念</h2><h3 id="1-1-1-操作系统的概念"><a href="#1-1-1-操作系统的概念" class="headerlink" title="1.1.1. 操作系统的概念"></a>1.1.1. 操作系统的概念</h3><h3 id="1-1-2-操作系统的特征"><a href="#1-1-2-操作系统的特征" class="headerlink" title="1.1.2. 操作系统的特征"></a>1.1.2. 操作系统的特征</h3><h3 id="1-1-3-操作系统的目标和功能"><a href="#1-1-3-操作系统的目标和功能" class="headerlink" title="1.1.3. 操作系统的目标和功能"></a>1.1.3. 操作系统的目标和功能</h3><h1 id="2-进程管理"><a href="#2-进程管理" class="headerlink" title="2. 进程管理"></a>2. 进程管理</h1><h2 id="2-1-进程与线程"><a href="#2-1-进程与线程" class="headerlink" title="2.1. 进程与线程"></a>2.1. 进程与线程</h2><h2 id="2-2-处理机调度"><a href="#2-2-处理机调度" class="headerlink" title="2.2. 处理机调度"></a>2.2. 处理机调度</h2><h2 id="2-3-进程同步"><a href="#2-3-进程同步" class="headerlink" title="2.3. 进程同步"></a>2.3. 进程同步</h2><h3 id="2-3-1-进程同步的概念"><a href="#2-3-1-进程同步的概念" class="headerlink" title="2.3.1. 进程同步的概念"></a>2.3.1. 进程同步的概念</h3><p>在多道程序环境下，进程是并发执行的，为了协调进程之间的相互制约关系，引入了进程同步概念。</p>
-<ol>
-<li>临界资源：一次仅允许一个进程使用的资源。对临界资源的访问必须互斥地进行，在每个进程中，访问临界资源的那部分代码叫做临界区。<br>为了保证临届资源的正确使用，可把临界资源的访问过程分为4个部分：<br> 1）进入区<br> 2）临界区<br> 3）退出区<br> 4）剩余区</li>
-<li>同步：也称直接制约关系。指为完成某种任务而建立的两个或多个线程，这些进程因为需要在某些位置上协调他们的工作次序而等待、传递信息所产生的制约关系。进程间的制约关系源于他们之间的相互合作。</li>
-<li>互斥：也称间接制约关系。当一个进程进入临界区使用临界资源时，另一个进程必须等待。</li>
-</ol>
-<p>为禁止两个进程同时进入临界区，同步机制应遵循以下准则：</p>
-<ul>
-<li>空闲让进</li>
-<li>忙则等待</li>
-<li>有限等待</li>
-<li>让权等待<h3 id="2-3-2-实现临界区互斥的基本方法"><a href="#2-3-2-实现临界区互斥的基本方法" class="headerlink" title="2.3.2. 实现临界区互斥的基本方法"></a>2.3.2. 实现临界区互斥的基本方法</h3></li>
-</ul>
-<ol>
-<li>软件实现方法<br> 1) 单标志法：设置一个公用整型变量turn，turn = i时允许编号为i的进程Pi进入临界区。若某个进程不再进入临界区，那么其他进程也将无法进入临界区（违背“空闲让进”）<br> 2) 双标志法先检查：在每个进程访问临界区资源之前，先查看该临界资源是否正被访问，若正被访问，该进程需等待。设置一个数据flag[i]，若flag[i] = false，表示Pi进程未进入临界区。<pre><code> 优点：不用交替进入，可连续使用
- 缺点：按序列①②③④执行时会同时进入临界区（违背“忙则等待”）</code></pre> 3) 双标志法后检查：先将自己的标志置为true，再检测对方的状态标志<pre><code> 缺点：两个进程几乎同时想要进入临界区时，他们分别将自己的标志flag置为true，并同时检测对方的状态，发现对方也要进入临界区时，双方互相谦让，结果谁也进不了临界区，从而导致“饥饿”现象。</code></pre> 4) Peterson’s Algorithm：为了防止两个进程进入临界区而无限期等待，又设置了变量turn，每个进程在先设置自己的标志后再设置turn标志。</li>
-</ol>
-<p>（2）    硬件实现方法<br>a)    中断屏蔽方法：因为CPU只是在发送中断的时候引起进程切换，所以当一个进程正在使用处理机执行他的临界区代码时，防止其他进程进入临界区进行访问的最简方法是禁止一切中断发生。</p>
-<p>b)    硬件指令方法<br>i.    TestAndSet指令：这条指令是原子操作，其功能是读出指定标志后把该标志设置为真。</p>
-<p>为每个临界资源设置一个共享布尔变量lock，表示资源的两种状态：true表示正在被占用，初值为false。在进程访问临界资源之前，利用TestAndSet检查和修改标志lock；若有进程在临界区，则重复检查，直到进程退出。</p>
-<p>ii.    Swap指令：该指令的功能是交换两个字（字节的内容）。</p>
-<p>为每个临界资源设置一个共享布尔变量lock，初值为false；在每个进程中再设置一个局部变量key，用于与lock交换信息。在进入临界区之前，先利用Swap指令交换lock和key的内容，然后检查key的状态。有进程在临界区时，重复交换和检查过程，直到进程退出。</p>
-<p>2.3.3.    信号量<br>信号量只能被两个标准的原语wait()和signal()访问，可记为“P操作”和“V操作”。<br>原语是指完成某种功能不被分割、不被中断执行的操作序列，通常由硬件来实现。原语功能的不被中断执行特性在单处理机上可有软件屏蔽中断方法实现。<br>2.4.    死锁<br>3.    内存管理<br>3.1.    内存管理概念<br>3.2.    虚拟内存管理<br>4.    文件管理<br>4.1.    文件系统基础<br>4.2.    文件系统实现<br>4.3.    磁盘组织与管理<br>5.    输入/输出（I/O）管理<br>5.1.    I/O管理概述<br>5.2.    I/O核心子系统</p>
-]]></content>
   </entry>
   <entry>
     <title>计算机网络学习笔记</title>
@@ -1297,6 +1269,34 @@ public class MergeSort {
         System.out.println(&quot;]&quot;);
     }
 }</code></pre><h2 id="6-快速排序"><a href="#6-快速排序" class="headerlink" title="6. 快速排序"></a>6. 快速排序</h2><h2 id="7-堆排序"><a href="#7-堆排序" class="headerlink" title="7. 堆排序"></a>7. 堆排序</h2><h2 id="8-计数排序"><a href="#8-计数排序" class="headerlink" title="8. 计数排序"></a>8. 计数排序</h2><h2 id="9-桶排序"><a href="#9-桶排序" class="headerlink" title="9. 桶排序"></a>9. 桶排序</h2><h2 id="10-基数排序"><a href="#10-基数排序" class="headerlink" title="10. 基数排序"></a>10. 基数排序</h2>]]></content>
+  </entry>
+  <entry>
+    <title>操作系统学习笔记</title>
+    <url>/2020/06/05/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="1-计算机系统概述"><a href="#1-计算机系统概述" class="headerlink" title="1. 计算机系统概述"></a>1. 计算机系统概述</h1><h2 id="1-1-操作系统的基本概念"><a href="#1-1-操作系统的基本概念" class="headerlink" title="1.1. 操作系统的基本概念"></a>1.1. 操作系统的基本概念</h2><h3 id="1-1-1-操作系统的概念"><a href="#1-1-1-操作系统的概念" class="headerlink" title="1.1.1. 操作系统的概念"></a>1.1.1. 操作系统的概念</h3><h3 id="1-1-2-操作系统的特征"><a href="#1-1-2-操作系统的特征" class="headerlink" title="1.1.2. 操作系统的特征"></a>1.1.2. 操作系统的特征</h3><h3 id="1-1-3-操作系统的目标和功能"><a href="#1-1-3-操作系统的目标和功能" class="headerlink" title="1.1.3. 操作系统的目标和功能"></a>1.1.3. 操作系统的目标和功能</h3><h1 id="2-进程管理"><a href="#2-进程管理" class="headerlink" title="2. 进程管理"></a>2. 进程管理</h1><h2 id="2-1-进程与线程"><a href="#2-1-进程与线程" class="headerlink" title="2.1. 进程与线程"></a>2.1. 进程与线程</h2><h2 id="2-2-处理机调度"><a href="#2-2-处理机调度" class="headerlink" title="2.2. 处理机调度"></a>2.2. 处理机调度</h2><h2 id="2-3-进程同步"><a href="#2-3-进程同步" class="headerlink" title="2.3. 进程同步"></a>2.3. 进程同步</h2><h3 id="2-3-1-进程同步的概念"><a href="#2-3-1-进程同步的概念" class="headerlink" title="2.3.1. 进程同步的概念"></a>2.3.1. 进程同步的概念</h3><p>在多道程序环境下，进程是并发执行的，为了协调进程之间的相互制约关系，引入了进程同步概念。</p>
+<ol>
+<li>临界资源：一次仅允许一个进程使用的资源。对临界资源的访问必须互斥地进行，在每个进程中，访问临界资源的那部分代码叫做临界区。<br>为了保证临届资源的正确使用，可把临界资源的访问过程分为4个部分：<br> 1）进入区<br> 2）临界区<br> 3）退出区<br> 4）剩余区</li>
+<li>同步：也称直接制约关系。指为完成某种任务而建立的两个或多个线程，这些进程因为需要在某些位置上协调他们的工作次序而等待、传递信息所产生的制约关系。进程间的制约关系源于他们之间的相互合作。</li>
+<li>互斥：也称间接制约关系。当一个进程进入临界区使用临界资源时，另一个进程必须等待。</li>
+</ol>
+<p>为禁止两个进程同时进入临界区，同步机制应遵循以下准则：</p>
+<ul>
+<li>空闲让进</li>
+<li>忙则等待</li>
+<li>有限等待</li>
+<li>让权等待<h3 id="2-3-2-实现临界区互斥的基本方法"><a href="#2-3-2-实现临界区互斥的基本方法" class="headerlink" title="2.3.2. 实现临界区互斥的基本方法"></a>2.3.2. 实现临界区互斥的基本方法</h3></li>
+</ul>
+<ol>
+<li>软件实现方法<br> 1) 单标志法：设置一个公用整型变量turn，turn = i时允许编号为i的进程Pi进入临界区。若某个进程不再进入临界区，那么其他进程也将无法进入临界区（违背“空闲让进”）<br> 2) 双标志法先检查：在每个进程访问临界区资源之前，先查看该临界资源是否正被访问，若正被访问，该进程需等待。设置一个数据flag[i]，若flag[i] = false，表示Pi进程未进入临界区。<pre><code> 优点：不用交替进入，可连续使用
+ 缺点：按序列①②③④执行时会同时进入临界区（违背“忙则等待”）</code></pre> 3) 双标志法后检查：先将自己的标志置为true，再检测对方的状态标志<pre><code> 缺点：两个进程几乎同时想要进入临界区时，他们分别将自己的标志flag置为true，并同时检测对方的状态，发现对方也要进入临界区时，双方互相谦让，结果谁也进不了临界区，从而导致“饥饿”现象。</code></pre> 4) Peterson’s Algorithm：为了防止两个进程进入临界区而无限期等待，又设置了变量turn，每个进程在先设置自己的标志后再设置turn标志。</li>
+</ol>
+<p>（2）    硬件实现方法<br>a)    中断屏蔽方法：因为CPU只是在发送中断的时候引起进程切换，所以当一个进程正在使用处理机执行他的临界区代码时，防止其他进程进入临界区进行访问的最简方法是禁止一切中断发生。</p>
+<p>b)    硬件指令方法<br>i.    TestAndSet指令：这条指令是原子操作，其功能是读出指定标志后把该标志设置为真。</p>
+<p>为每个临界资源设置一个共享布尔变量lock，表示资源的两种状态：true表示正在被占用，初值为false。在进程访问临界资源之前，利用TestAndSet检查和修改标志lock；若有进程在临界区，则重复检查，直到进程退出。</p>
+<p>ii.    Swap指令：该指令的功能是交换两个字（字节的内容）。</p>
+<p>为每个临界资源设置一个共享布尔变量lock，初值为false；在每个进程中再设置一个局部变量key，用于与lock交换信息。在进入临界区之前，先利用Swap指令交换lock和key的内容，然后检查key的状态。有进程在临界区时，重复交换和检查过程，直到进程退出。</p>
+<p>2.3.3.    信号量<br>信号量只能被两个标准的原语wait()和signal()访问，可记为“P操作”和“V操作”。<br>原语是指完成某种功能不被分割、不被中断执行的操作序列，通常由硬件来实现。原语功能的不被中断执行特性在单处理机上可有软件屏蔽中断方法实现。<br>2.4.    死锁<br>3.    内存管理<br>3.1.    内存管理概念<br>3.2.    虚拟内存管理<br>4.    文件管理<br>4.1.    文件系统基础<br>4.2.    文件系统实现<br>4.3.    磁盘组织与管理<br>5.    输入/输出（I/O）管理<br>5.1.    I/O管理概述<br>5.2.    I/O核心子系统</p>
+]]></content>
   </entry>
   <entry>
     <title>session和cookie</title>
